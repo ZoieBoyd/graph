@@ -10,10 +10,11 @@ export class Graph {
     }
 
     addEdge(startNode, endNode) {
-        if (this.nodes.includes(startNode) && this.nodes.includes(endNode)) {
-            this.adjacencyList.get(startNode).push(endNode);
-            this.adjacencyList.get(endNode).push(startNode);
-        }
+        if (!this.nodes.includes(startNode) || !this.nodes.includes(endNode))
+            return console.error("One or both of these nodes do not exist.");
+
+        this.adjacencyList.get(startNode).push(endNode);
+        this.adjacencyList.get(endNode).push(startNode);
     }
 
     removeNode(node) {
@@ -34,7 +35,7 @@ export class Graph {
     }
 
     removeEdge(start, end) {
-        if (!this.adjacencyList.has(start) || !this.adjacencyList.has(end))
+        if (!this.nodes.includes(start) || !this.nodes.includes(end))
             return console.error("Error: One or both of these nodes do not exist.");
 
         const startNode = this.adjacencyList.get(start);
